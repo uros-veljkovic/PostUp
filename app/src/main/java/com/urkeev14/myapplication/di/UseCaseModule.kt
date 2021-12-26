@@ -4,9 +4,10 @@ import com.urkeev14.myapplication.data.source.local.LocalDataSource
 import com.urkeev14.myapplication.data.source.local.entity.TypicodePostEntity
 import com.urkeev14.myapplication.data.source.remote.RemoteDataSource
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostDto
+import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostId
 import com.urkeev14.myapplication.feature.posts.TypicodePostDataMapper
 import com.urkeev14.myapplication.usecase.CacheAllUseCase
-import com.urkeev14.myapplication.usecase.FetchAllUseCase
+import com.urkeev14.myapplication.usecase.FetchUseCase
 import com.urkeev14.myapplication.usecase.GetAllUseCase
 import dagger.Module
 import dagger.Provides
@@ -26,9 +27,9 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun provideFetchTypicodePostsUseCase(
-        remoteDataSource: RemoteDataSource<TypicodePostDto>,
+        remoteDataSource: RemoteDataSource<TypicodePostId, TypicodePostDto>,
         mapper: TypicodePostDataMapper,
-    ): FetchAllUseCase<TypicodePostDto, TypicodePostEntity> = FetchAllUseCase(remoteDataSource, mapper)
+    ): FetchUseCase<TypicodePostId, TypicodePostDto, TypicodePostEntity> = FetchUseCase(remoteDataSource, mapper)
 
     @Provides
     @Singleton

@@ -1,8 +1,8 @@
 package com.urkeev14.myapplication.data.source.remote.api.posts
 
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostDto
+import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserDto
 import retrofit2.Response
-import retrofit2.http.GET
 
 interface PostApi {
 
@@ -12,4 +12,12 @@ interface PostApi {
      * @return list of [TypicodePostDto]
      */
     suspend fun getPosts(): Response<List<TypicodePostDto>>
+
+    /**
+     * Get post by [id]
+     *
+     * @param id id of [TypicodePostDto]
+     * @return [TypicodePostDto]
+     */
+    suspend fun getPost(id: Int): Response<TypicodePostDto>
 }
