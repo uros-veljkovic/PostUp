@@ -16,7 +16,7 @@ import com.urkeev14.myapplication.R
 import com.urkeev14.myapplication.data.source.local.entity.TypicodePostEntity
 import com.urkeev14.myapplication.databinding.FragmentPostsBinding
 import com.urkeev14.myapplication.utils.ui.UiState
-import com.urkeev14.myapplication.utils.ui.extensions.visibleOrGone
+import com.urkeev14.myapplication.utils.extensions.visibleOrGone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 

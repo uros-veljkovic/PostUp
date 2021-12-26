@@ -3,6 +3,7 @@ package com.urkeev14.myapplication.feature.posts
 import com.urkeev14.myapplication.data.source.local.entity.TypicodePostEntity
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostDto
 import com.urkeev14.myapplication.utils.DataMapper
+import com.urkeev14.myapplication.utils.extensions.capitalized
 import javax.inject.Inject
 
 class TypicodePostDataMapper @Inject constructor() : DataMapper<TypicodePostDto, TypicodePostEntity> {
@@ -10,8 +11,8 @@ class TypicodePostDataMapper @Inject constructor() : DataMapper<TypicodePostDto,
         return TypicodePostEntity(
             id = input.id,
             userId = input.userId,
-            title = input.title,
-            content = input.body
+            title = input.title.capitalized(),
+            content = input.body.capitalized()
         )
     }
 }

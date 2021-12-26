@@ -1,4 +1,4 @@
-package com.urkeev14.myapplication.utils.ui.extensions
+package com.urkeev14.myapplication.utils.extensions
 
 import android.view.View
 
