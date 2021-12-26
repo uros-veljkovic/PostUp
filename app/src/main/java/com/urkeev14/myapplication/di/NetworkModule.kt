@@ -6,6 +6,7 @@ import com.urkeev14.myapplication.data.source.remote.TypicodePostRemoteSourceImp
 import com.urkeev14.myapplication.data.source.remote.api.posts.PostApi
 import com.urkeev14.myapplication.data.source.remote.api.posts.impl.TypicodePostApi
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostDto
+import com.urkeev14.myapplication.utils.network.NetworkActionHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,8 +36,9 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideRemotePostDataSource(
+        networkActionHandler: NetworkActionHandler,
         @Named(TYPICODE) postApi: PostApi,
-    ): RemoteDataSource<TypicodePostDto> = TypicodePostRemoteSourceImpl(postApi)
+    ): RemoteDataSource<TypicodePostDto> = TypicodePostRemoteSourceImpl(networkActionHandler, postApi)
 
     companion object Api {
         const val TYPICODE = "TypicodePostApi"
