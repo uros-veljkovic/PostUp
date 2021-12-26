@@ -12,7 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.urkeev14.myapplication.R
 import com.urkeev14.myapplication.data.source.local.entity.TypicodePostEntity
 import com.urkeev14.myapplication.databinding.FragmentPostsBinding
-import com.urkeev14.myapplication.utils.state.UiState
+import com.urkeev14.myapplication.utils.ui.UiState
+import com.urkeev14.myapplication.utils.ui.extensions.visibleOrGone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -36,6 +37,8 @@ class PostsFragment : Fragment(), PostsAdapter.Callback {
             recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             recyclerView.adapter = adapter
             recyclerView.addItemDecoration(PostsItemDecorator(itemMargin))
+
+            layoutError.buttonTryAgain.setOnClickListener { viewModel.fetchPosts() }
         }
     }
 
@@ -48,16 +51,31 @@ class PostsFragment : Fragment(), PostsAdapter.Callback {
         lifecycleScope.launchWhenStarted {
             viewModel.state.collect {
                 when (it) {
-                    is UiState.Error -> {}
-                    is UiState.Loading -> {}
-                    is UiState.Success -> handleSuccess(it.data!!)
+                    is UiState.Error -> handleError(it)
+                    is UiState.Loading -> handleViewVisibility(it)
+                    is UiState.Success -> handleSuccess(it)
                 }
             }
         }
     }
 
-    private fun handleSuccess(list: List<TypicodePostEntity>) {
-        adapter.setList(list)
+    private fun handleViewVisibility(state: UiState<List<TypicodePostEntity>>) = with(binding) {
+        progressBar.visibleOrGone(state is UiState.Loading)
+        layoutError.root.visibleOrGone(state is UiState.Error)
+        recyclerView.visibleOrGone(state is UiState.Success)
+    }
+
+    private fun handleError(state: UiState.Error<List<TypicodePostEntity>>) {
+        handleViewVisibility(state)
+
+        state.error?.message?.let {
+            binding.layoutError.textViewDescription.text = it
+        }
+    }
+
+    private fun handleSuccess(state: UiState.Success<List<TypicodePostEntity>>) {
+        handleViewVisibility(state)
+        adapter.setList(state.data ?: emptyList())
     }
 
     override fun onPostClick(id: Int) {

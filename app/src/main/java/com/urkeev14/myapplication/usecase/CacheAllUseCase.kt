@@ -2,7 +2,7 @@ package com.urkeev14.myapplication.usecase
 
 import com.urkeev14.myapplication.data.source.local.LocalDataSource
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
-import com.urkeev14.myapplication.utils.state.UiState
+import com.urkeev14.myapplication.utils.ui.UiState
 import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
 

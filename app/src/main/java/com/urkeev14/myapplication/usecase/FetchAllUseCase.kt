@@ -3,8 +3,9 @@ package com.urkeev14.myapplication.usecase
 import com.urkeev14.myapplication.data.source.remote.RemoteDataSource
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
 import com.urkeev14.myapplication.utils.DataMapper
-import com.urkeev14.myapplication.utils.state.UiState
+import com.urkeev14.myapplication.utils.ui.UiState
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 
 class FetchAllUseCase<Dto, Entity>
@@ -18,6 +19,7 @@ class FetchAllUseCase<Dto, Entity>
      * @return [UiState.Success] if data is successfully fetched, else [UiState.Error]
      */
     operator fun invoke() = flow {
+        emit(UiState.Loading())
         when (val response = remoteDataSource.getAll()) {
             is RepositoryResponse.Failure -> emit(UiState.Error(throwable = response.throwable))
             is RepositoryResponse.Success -> emit(UiState.Success(mapper.map(response.data)))

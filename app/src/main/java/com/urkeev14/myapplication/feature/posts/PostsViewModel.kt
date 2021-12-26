@@ -6,7 +6,7 @@ import com.urkeev14.myapplication.data.source.local.entity.TypicodePostEntity
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostDto
 import com.urkeev14.myapplication.usecase.FetchAllUseCase
 import com.urkeev14.myapplication.usecase.GetAllUseCase
-import com.urkeev14.myapplication.utils.state.UiState
+import com.urkeev14.myapplication.utils.ui.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class PostsViewModel
 @Inject constructor(
-    private val getAllUseCase: GetAllUseCase<TypicodePostEntity>,
     private val fetchAllUseCase: FetchAllUseCase<TypicodePostDto, TypicodePostEntity>,
 ) : ViewModel() {
 
@@ -25,10 +24,10 @@ class PostsViewModel
     val state = _state.asStateFlow()
 
     init {
-        getPosts()
+        fetchPosts()
     }
 
-    private fun getPosts() {
+    fun fetchPosts() {
         viewModelScope.launch {
             fetchAllUseCase().collect {
                 _state.value = it
