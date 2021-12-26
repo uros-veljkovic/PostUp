@@ -2,6 +2,9 @@ package com.urkeev14.myapplication.feature.posts
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -32,14 +35,21 @@ class PostsFragment : Fragment(), PostsAdapter.Callback {
     }
 
     private fun setupUI() {
+
+        setHasOptionsMenu(true)
+
         val itemMargin = requireContext().resources.getDimension(R.dimen.margin_small).toInt()
         with(binding) {
             recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             recyclerView.adapter = adapter
             recyclerView.addItemDecoration(PostsItemDecorator(itemMargin))
 
-            layoutError.buttonTryAgain.setOnClickListener { viewModel.fetchPosts() }
+            layoutError.buttonTryAgain.setOnClickListener { refreshPosts() }
         }
+    }
+
+    private fun refreshPosts() {
+        viewModel.fetchPosts()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,6 +90,21 @@ class PostsFragment : Fragment(), PostsAdapter.Callback {
 
     override fun onPostClick(id: Int) {
         Snackbar.make(requireView(), "Post ID: $id", Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_posts_fragment, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.refresh -> {
+                refreshPosts()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onDestroyView() {
