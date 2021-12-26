@@ -2,4 +2,7 @@
     <string name="app_name">My Application</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="oops">Oops</string>
+    <string name="try_again">Try again</string>
+    <string name="error_network">Something went wrong.\nEnable internet connection and try again.</string>
 </resources>
