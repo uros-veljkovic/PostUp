@@ -76,8 +76,7 @@ class PostFragment : Fragment() {
 
     private suspend fun observePostDeletedState() {
         viewModel.deletedState.collect() {
-            val isSuccessfulDelete = it.data != null && it.data
-            if (it is UiState.Success && isSuccessfulDelete) {
+            if (it is UiState.Success) {
                 showPostDeletedSuccessDialog()
             } else {
                 showPostDeletedFailureDialog()

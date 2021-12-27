@@ -26,7 +26,7 @@ class PostViewModel
     private val _postDetailsState: MutableStateFlow<UiState<TypicodePostDetailsEntity>> = MutableStateFlow(UiState.Loading())
     val postDetailsState = _postDetailsState.asStateFlow()
 
-    private val _deletedState: MutableStateFlow<UiState<Boolean>> = MutableStateFlow(UiState.Loading())
+    private val _deletedState: MutableStateFlow<UiState<Unit>> = MutableStateFlow(UiState.Loading())
     val deletedState = _deletedState.asStateFlow()
 
     fun fetchDetails(postId: TypicodePostId, userId: TypicodeUserId) = viewModelScope.launch {
