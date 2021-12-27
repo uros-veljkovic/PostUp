@@ -11,6 +11,12 @@ class DeleteUseCase<Entity>
 @Inject constructor(
     private val localDataSource: LocalDataSource<Entity>,
 ) {
+    /**
+     * Deletes a single [entity] from database table
+     *
+     * @param entity entity being deleted
+     * @return [UiState.Success] if entity is deleted, else [UiState.Error]
+     */
     operator fun invoke(entity: Entity) = flow {
         when (executeDatabaseAction { localDataSource.delete(entity) }) {
             is RepositoryResponse.Failure -> emit(UiState.Error())
@@ -18,6 +24,9 @@ class DeleteUseCase<Entity>
         }
     }
 
+    /**
+     * Deletes all the [Entity]'s from database table
+     */
     suspend operator fun invoke() {
         executeDatabaseAction { localDataSource.deleteAll() }
     }
