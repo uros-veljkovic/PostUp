@@ -18,6 +18,15 @@ class FetchPostDetailsUseCase
     private val fetchUserUseCase: FetchOneUseCase<TypicodeUserId, TypicodeUserDto, TypicodeUserEntity>,
     private val fetchPostUseCase: FetchOneUseCase<TypicodePostId, TypicodePostDto, TypicodePostEntity>,
 ) {
+    /**
+     * Fetches a single [TypicodePostEntity] and a single [TypicodeUserEntity]
+     * and maps them into [TypicodePostDetailsEntity]
+     *
+     * @param postId identifier of [TypicodePostDto]
+     * @param userId identifier of [TypicodeUserDto]
+     * @return [kotlinx.coroutines.flow.Flow] of [UiState.Success] if both [TypicodePostDto] and [TypicodeUserDto] are fetched successfully,
+     * else [kotlinx.coroutines.flow.Flow] of [UiState.Error]
+     */
     operator fun invoke(postId: TypicodePostId, userId: TypicodeUserId) = flow {
         emit(UiState.Loading())
         val userUiState = fetchUserUseCase.invoke(userId).last()
