@@ -90,6 +90,7 @@ class PostsFragment : Fragment(), PostsAdapter.Callback {
     private fun handleSuccess(state: UiState.Success<List<TypicodePostEntity>>) {
         handleViewVisibility(state)
         adapter.setList(state.data ?: emptyList())
+        binding.recyclerView.startLayoutAnimation()
     }
 
     override fun onPostClick(postId: TypicodePostId, userId: TypicodeUserId) {
