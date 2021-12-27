@@ -3,18 +3,23 @@ package com.urkeev14.myapplication.data.source.local.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.urkeev14.myapplication.data.source.local.entity.TypicodePostEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TypicodePostDao {
 
     @Query("SELECT * FROM post")
-    fun getAll(): List<TypicodePostEntity>
+    fun getAll(): Flow<List<TypicodePostEntity>>
 
-    @Insert
-    fun insertAll(list: List<TypicodePostEntity>): List<Long>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(vararg posts: TypicodePostEntity)
 
     @Delete
-    fun delete(entity: TypicodePostEntity): Int
+    suspend fun delete(entity: TypicodePostEntity): Int
+
+    @Query("DELETE FROM post")
+    suspend fun deleteAll(): Int
 }

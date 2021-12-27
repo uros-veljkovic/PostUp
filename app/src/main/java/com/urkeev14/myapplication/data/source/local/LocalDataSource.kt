@@ -1,6 +1,7 @@
 package com.urkeev14.myapplication.data.source.local
 
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
+import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource<Entity> {
     /**
@@ -8,7 +9,7 @@ interface LocalDataSource<Entity> {
      *
      * @return list of [Entity]
      */
-    suspend fun getAll(): RepositoryResponse<List<Entity>>
+    fun getAll(): Flow<RepositoryResponse<List<Entity>>>
 
     /**
      * Caches list of [Entity]
@@ -16,7 +17,7 @@ interface LocalDataSource<Entity> {
      * @param list of [Entity] to cache
      * @return [RepositoryResponse.Success] if list is caches successfully, else [RepositoryResponse.Failure]
      */
-    suspend fun insertAll(list: List<Entity>): RepositoryResponse<List<Long>>
+    suspend fun insertAll(list: List<Entity>): RepositoryResponse<Unit>
 
     /**
      * Deletes entity from database
@@ -25,4 +26,11 @@ interface LocalDataSource<Entity> {
      * @return [RepositoryResponse.Success] if list is caches successfully, else [RepositoryResponse.Failure]
      */
     suspend fun delete(entity: Entity): RepositoryResponse<Int>
+
+    /**
+     * Deletes all entities from database
+     *
+     * @return [RepositoryResponse.Success] if database entities are deleted, else [RepositoryResponse.Failure]
+     */
+    suspend fun deleteAll(): RepositoryResponse<Int>
 }

@@ -12,10 +12,13 @@ class DeleteUseCase<Entity>
     private val localDataSource: LocalDataSource<Entity>,
 ) {
     operator fun invoke(entity: Entity) = flow {
-        emit(UiState.Loading())
         when (executeDatabaseAction { localDataSource.delete(entity) }) {
-            is RepositoryResponse.Failure -> emit(UiState.Success(false))
-            is RepositoryResponse.Success -> emit(UiState.Success(true))
+            is RepositoryResponse.Failure -> emit(UiState.Error())
+            is RepositoryResponse.Success -> emit(UiState.Success(Unit))
         }
+    }
+
+    suspend operator fun invoke() {
+        executeDatabaseAction { localDataSource.deleteAll() }
     }
 }
