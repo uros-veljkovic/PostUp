@@ -13,6 +13,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -22,23 +23,22 @@ class PostViewModel
     private val deleteUseCase: DeleteUseCase<TypicodePostEntity>,
 ) : ViewModel() {
 
-    private val _state: MutableStateFlow<UiState<TypicodePostDetailsEntity>> = MutableStateFlow(UiState.Loading())
-    val state = _state.asStateFlow()
+    private val _postDetailsState: MutableStateFlow<UiState<TypicodePostDetailsEntity>> = MutableStateFlow(UiState.Loading())
+    val postDetailsState = _postDetailsState.asStateFlow()
 
     private val _deletedState: MutableStateFlow<UiState<Boolean>> = MutableStateFlow(UiState.Loading())
     val deletedState = _deletedState.asStateFlow()
 
     fun fetchDetails(postId: TypicodePostId, userId: TypicodeUserId) = viewModelScope.launch {
         fetchPostDetailsUseCase.invoke(postId, userId).collect {
-            _state.value = it
+            _postDetailsState.value = it
         }
     }
 
     fun deletePost() = viewModelScope.launch {
-        state.value.data?.let { details ->
-            deleteUseCase.invoke(details.post).collect {
-                _deletedState.value = it
-            }
+        postDetailsState.value.data?.let { details ->
+            val result = deleteUseCase.invoke(details.post).last()
+            _deletedState.value = result
         }
     }
 

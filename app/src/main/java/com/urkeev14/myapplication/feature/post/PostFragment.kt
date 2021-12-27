@@ -59,12 +59,28 @@ class PostFragment : Fragment() {
 
     private fun observeData() {
         lifecycleScope.launchWhenStarted {
-            viewModel.state.collect {
-                when (it) {
-                    is UiState.Error -> handleError(it)
-                    is UiState.Loading -> handleViewVisibility(it)
-                    is UiState.Success -> handleSuccess(it)
-                }
+            observePostDetailsFetchedState()
+            observePostDeletedState()
+        }
+    }
+
+    private suspend fun observePostDetailsFetchedState() {
+        viewModel.postDetailsState.collect {
+            when (it) {
+                is UiState.Error -> handleError(it)
+                is UiState.Loading -> handleViewVisibility(it)
+                is UiState.Success -> handleSuccess(it)
+            }
+        }
+    }
+
+    private suspend fun observePostDeletedState() {
+        viewModel.deletedState.collect() {
+            val isSuccessfulDelete = it.data != null && it.data
+            if (it is UiState.Success && isSuccessfulDelete) {
+                showPostDeletedSuccessDialog()
+            } else {
+                showPostDeletedFailureDialog()
             }
         }
     }
@@ -122,19 +138,27 @@ class PostFragment : Fragment() {
             .setMessage(R.string.delete_post_message)
             .setPositiveButton(android.R.string.ok) { dialog, _ ->
                 viewModel.deletePost()
-                showPostDeletedDialog()
+                showPostDeletedSuccessDialog()
             }
             .setNegativeButton(android.R.string.cancel) { dialog, _ ->
                 dialog.cancel()
             }.show()
     }
 
-    private fun showPostDeletedDialog() {
+    private fun showPostDeletedSuccessDialog() {
         MaterialAlertDialogBuilder(requireContext())
-            .setMessage(R.string.deleted_post_message)
+            .setMessage(R.string.deleted_post_success_message)
             .setNeutralButton(android.R.string.ok) { dialog, _ ->
                 dialog.cancel()
                 findNavController().navigateUp()
+            }.show()
+    }
+
+    private fun showPostDeletedFailureDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(R.string.deleted_post_failure_message)
+            .setNeutralButton(android.R.string.ok) { dialog, _ ->
+                dialog.cancel()
             }.show()
     }
 

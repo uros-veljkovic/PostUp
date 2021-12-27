@@ -13,7 +13,7 @@ class DeleteUseCase<Entity>
 ) {
     operator fun invoke(entity: Entity) = flow {
         emit(UiState.Loading())
-        when (val result = executeDatabaseAction { localDataSource.delete(entity) }){
+        when (executeDatabaseAction { localDataSource.delete(entity) }) {
             is RepositoryResponse.Failure -> emit(UiState.Success(false))
             is RepositoryResponse.Success -> emit(UiState.Success(true))
         }

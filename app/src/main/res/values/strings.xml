@@ -11,5 +11,6 @@
     <string name="delete">Delete</string>
     <string name="delete_post_title">Delete post</string>
     <string name="delete_post_message">Are you sure that you want to delete this post ?</string>
-    <string name="deleted_post_message">Post deleted</string>
+    <string name="deleted_post_success_message">Post deleted</string>
+    <string name="deleted_post_failure_message">Unable to delete the post</string>
 </resources>
