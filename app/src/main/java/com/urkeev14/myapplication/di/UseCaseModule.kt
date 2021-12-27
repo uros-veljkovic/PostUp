@@ -79,5 +79,4 @@ class UseCaseModule {
     companion object {
         const val TYPICODE_POST_MAPPER = "TypicodePostDataMapper"
     }
-
 }

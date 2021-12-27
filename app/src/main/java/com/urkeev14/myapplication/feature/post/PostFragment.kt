@@ -84,7 +84,6 @@ class PostFragment : Fragment() {
         }
     }
 
-
     private fun handleViewVisibility(state: UiState<TypicodePostDetailsEntity>) = with(binding) {
         progressBar.visibleOrGone(state is UiState.Loading)
         layoutError.root.visibleOrGone(state is UiState.Error)

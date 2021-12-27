@@ -3,8 +3,8 @@ package com.urkeev14.myapplication.usecase
 import com.urkeev14.myapplication.data.source.local.LocalDataSource
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
 import com.urkeev14.myapplication.utils.ui.UiState
-import javax.inject.Inject
 import kotlinx.coroutines.flow.transform
+import javax.inject.Inject
 
 class GetAllUseCase<Entity>
 @Inject constructor(

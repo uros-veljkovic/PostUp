@@ -5,9 +5,9 @@ import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostDto
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostId
 import com.urkeev14.myapplication.utils.network.NetworkActionHandler
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class TypicodePostRemoteSourceImpl
 @Inject constructor(
@@ -22,5 +22,4 @@ class TypicodePostRemoteSourceImpl
     override suspend fun getOne(id: TypicodePostId): RepositoryResponse<TypicodePostDto> {
         return withContext(IO) { networkActionHandler.execute { postApi.getPost(id) } }
     }
-
 }

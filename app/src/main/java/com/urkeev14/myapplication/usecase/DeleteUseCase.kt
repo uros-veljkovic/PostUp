@@ -4,8 +4,8 @@ import com.urkeev14.myapplication.data.source.local.LocalDataSource
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
 import com.urkeev14.myapplication.utils.network.executeDatabaseAction
 import com.urkeev14.myapplication.utils.ui.UiState
-import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 class DeleteUseCase<Entity>
 @Inject constructor(

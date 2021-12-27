@@ -4,8 +4,8 @@ import com.urkeev14.myapplication.data.source.remote.RemoteDataSource
 import com.urkeev14.myapplication.utils.DataMapper
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
 import com.urkeev14.myapplication.utils.ui.UiState
-import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 class FetchOneUseCase<DtoId, Dto, Entity>
 @Inject constructor(

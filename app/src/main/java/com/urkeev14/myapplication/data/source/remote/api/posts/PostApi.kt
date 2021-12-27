@@ -1,7 +1,6 @@
 package com.urkeev14.myapplication.data.source.remote.api.posts
 
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostDto
-import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserDto
 import retrofit2.Response
 
 interface PostApi {

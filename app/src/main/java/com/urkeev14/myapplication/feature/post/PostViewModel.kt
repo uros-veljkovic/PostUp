@@ -9,12 +9,12 @@ import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserId
 import com.urkeev14.myapplication.usecase.DeleteUseCase
 import com.urkeev14.myapplication.utils.ui.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class PostViewModel
@@ -41,6 +41,4 @@ class PostViewModel
             _deletedState.value = result
         }
     }
-
-
 }

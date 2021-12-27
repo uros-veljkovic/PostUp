@@ -9,9 +9,9 @@ import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserDto
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserId
 import com.urkeev14.myapplication.usecase.FetchOneUseCase
 import com.urkeev14.myapplication.utils.ui.UiState
-import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.last
+import javax.inject.Inject
 
 class FetchPostDetailsUseCase
 @Inject constructor(

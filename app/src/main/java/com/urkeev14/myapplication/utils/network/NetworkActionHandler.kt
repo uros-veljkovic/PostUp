@@ -2,10 +2,10 @@ package com.urkeev14.myapplication.utils.network
 
 import android.content.Context
 import com.urkeev14.myapplication.R
-import java.io.IOException
-import javax.inject.Inject
 import kotlinx.coroutines.delay
 import retrofit2.Response
+import java.io.IOException
+import javax.inject.Inject
 
 class NetworkActionHandler @Inject constructor(private val context: Context) {
 

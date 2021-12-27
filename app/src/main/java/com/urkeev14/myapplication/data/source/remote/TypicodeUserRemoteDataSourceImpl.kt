@@ -5,9 +5,9 @@ import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserDto
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserId
 import com.urkeev14.myapplication.utils.network.NetworkActionHandler
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
-import javax.inject.Inject
 import okhttp3.ResponseBody
 import retrofit2.Response
+import javax.inject.Inject
 
 class TypicodeUserRemoteDataSourceImpl @Inject constructor(
     private val networkActionHandler: NetworkActionHandler,
@@ -21,5 +21,4 @@ class TypicodeUserRemoteDataSourceImpl @Inject constructor(
     override suspend fun getOne(id: TypicodeUserId): RepositoryResponse<TypicodeUserDto> {
         return networkActionHandler.execute { api.getUser(id) }
     }
-
 }

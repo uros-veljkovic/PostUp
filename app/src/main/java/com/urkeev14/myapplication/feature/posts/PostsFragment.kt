@@ -117,5 +117,4 @@ class PostsFragment : Fragment(), PostsAdapter.Callback {
         super.onDestroyView()
         _binding = null
     }
-
 }

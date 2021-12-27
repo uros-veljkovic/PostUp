@@ -33,7 +33,7 @@ class PostsAdapter(
     }
 
     fun setList(list: List<TypicodePostEntity>) {
-        this.list = list;
+        this.list = list
         notifyDataSetChanged()
     }
 
