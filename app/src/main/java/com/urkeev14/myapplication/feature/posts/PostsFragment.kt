@@ -10,13 +10,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.urkeev14.myapplication.R
 import com.urkeev14.myapplication.data.source.local.entity.TypicodePostEntity
+import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostId
+import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserId
 import com.urkeev14.myapplication.databinding.FragmentPostsBinding
-import com.urkeev14.myapplication.utils.ui.UiState
 import com.urkeev14.myapplication.utils.extensions.visibleOrGone
+import com.urkeev14.myapplication.utils.ui.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -88,8 +91,9 @@ class PostsFragment : Fragment(), PostsAdapter.Callback {
         adapter.setList(state.data ?: emptyList())
     }
 
-    override fun onPostClick(id: Int) {
-        Snackbar.make(requireView(), "Post ID: $id", Snackbar.LENGTH_SHORT).show()
+    override fun onPostClick(postId: TypicodePostId, userId: TypicodeUserId) {
+        val destination = PostsFragmentDirections.actionPostsFragmentToPostFragment(userId, postId)
+        findNavController().navigate(destination)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

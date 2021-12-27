@@ -8,5 +8,22 @@
     <fragment
         android:id="@+id/postsFragment"
         android:name="com.urkeev14.myapplication.feature.posts.PostsFragment"
-        android:label="Posts" />
+        android:label="Posts">
+        <action
+            android:id="@+id/action_postsFragment_to_postFragment"
+            app:destination="@id/postFragment"
+            app:popUpTo="@id/postsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.urkeev14.myapplication.feature.post.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post">
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+        <argument
+            android:name="postId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

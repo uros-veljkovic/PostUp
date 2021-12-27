@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.urkeev14.myapplication.data.source.local.entity.TypicodePostEntity
+import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostId
+import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserId
 import com.urkeev14.myapplication.databinding.ViewPostSmallBinding
 
 class PostsAdapter(
@@ -12,7 +14,7 @@ class PostsAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface Callback {
-        fun onPostClick(id: Int)
+        fun onPostClick(postId: TypicodePostId, userId: TypicodeUserId)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -40,7 +42,7 @@ class PostsAdapter(
             titleTextView.text = postEntity.title
             contentTextView.text = postEntity.content
             root.setOnClickListener {
-                listener.onPostClick(postEntity.id)
+                listener.onPostClick(postEntity.id, postEntity.userId)
             }
         }
     }
