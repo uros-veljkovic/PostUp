@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.urkeev14.myapplication.R
 import com.urkeev14.myapplication.data.source.local.entity.TypicodePostDetailsEntity
 import com.urkeev14.myapplication.databinding.FragmentPostBinding
@@ -28,6 +30,11 @@ class PostFragment : Fragment() {
     private val args: PostFragmentArgs by navArgs()
     private val userId by lazy { args.userId }
     private val postId by lazy { args.postId }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPostBinding.inflate(inflater)
@@ -95,18 +102,40 @@ class PostFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_posts_fragment, menu)
+        inflater.inflate(R.menu.menu_post_fragment, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.delete -> {
-                viewModel.deletePost()
+                showDeletePostConfirmDialog()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showDeletePostConfirmDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.delete_post_title)
+            .setMessage(R.string.delete_post_message)
+            .setPositiveButton(android.R.string.ok) { dialog, _ ->
+                viewModel.deletePost()
+                showPostDeletedDialog()
+            }
+            .setNegativeButton(android.R.string.cancel) { dialog, _ ->
+                dialog.cancel()
+            }.show()
+    }
+
+    private fun showPostDeletedDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(R.string.deleted_post_message)
+            .setNeutralButton(android.R.string.ok) { dialog, _ ->
+                dialog.cancel()
+                findNavController().navigateUp()
+            }.show()
     }
 
     override fun onDestroyView() {

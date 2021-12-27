@@ -17,9 +17,12 @@ interface LocalDataSource<Entity> {
      * @return [RepositoryResponse.Success] if list is caches successfully, else [RepositoryResponse.Failure]
      */
     suspend fun insertAll(list: List<Entity>): RepositoryResponse<List<Long>>
-}
 
-/**
- * Indicates that a method does not return any value
- */
-class NoResponse
+    /**
+     * Deletes entity from database
+     *
+     * @param entity entity to delete
+     * @return [RepositoryResponse.Success] if list is caches successfully, else [RepositoryResponse.Failure]
+     */
+    suspend fun delete(entity: Entity): RepositoryResponse<Int>
+}

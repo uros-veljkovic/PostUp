@@ -12,11 +12,15 @@ class TypicodePostsLocalDataSourceImpl
 ) : LocalDataSource<TypicodePostEntity> {
 
     override suspend fun getAll(): RepositoryResponse<List<TypicodePostEntity>> {
-        return executeDatabaseAction { database.dao().getPosts() }
+        return executeDatabaseAction { database.dao().getAll() }
     }
 
     override suspend fun insertAll(list: List<TypicodePostEntity>): RepositoryResponse<List<Long>> {
         return executeDatabaseAction { database.dao().insertAll(list) }
+    }
+
+    override suspend fun delete(entity: TypicodePostEntity): RepositoryResponse<Int> {
+        return executeDatabaseAction { database.dao().delete(entity) }
     }
 
 }

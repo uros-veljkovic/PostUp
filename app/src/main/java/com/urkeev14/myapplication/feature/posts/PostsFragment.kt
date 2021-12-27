@@ -31,6 +31,11 @@ class PostsFragment : Fragment(), PostsAdapter.Callback {
     private val viewModel: PostsViewModel by viewModels()
     private val adapter by lazy { PostsAdapter(emptyList(), this) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPostsBinding.inflate(inflater, container, false)
         setupUI()
@@ -38,9 +43,6 @@ class PostsFragment : Fragment(), PostsAdapter.Callback {
     }
 
     private fun setupUI() {
-
-        setHasOptionsMenu(true)
-
         val itemMargin = requireContext().resources.getDimension(R.dimen.margin_small).toInt()
         with(binding) {
             recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
