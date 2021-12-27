@@ -12,12 +12,16 @@
         <action
             android:id="@+id/action_postsFragment_to_postFragment"
             app:destination="@id/postFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
             app:popUpTo="@id/postsFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
         android:name="com.urkeev14.myapplication.feature.post.PostFragment"
-        android:label="fragment_post"
+        android:label="Post details"
         tools:layout="@layout/fragment_post">
         <argument
             android:name="userId"
@@ -26,4 +30,5 @@
             android:name="postId"
             app:argType="integer" />
     </fragment>
+    <action android:id="@+id/action_global_postsFragment" app:destination="@id/postsFragment" />
 </navigation>
