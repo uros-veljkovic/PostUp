@@ -4,7 +4,7 @@ import com.urkeev14.myapplication.data.source.local.LocalDataSource
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
 import com.urkeev14.myapplication.utils.ui.UiState
 import javax.inject.Inject
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.transform
 
 class GetAllUseCase<Entity>
 @Inject constructor(
@@ -15,9 +15,9 @@ class GetAllUseCase<Entity>
      *
      * @return [UiState.Success] if data is successfully loaded from database, else [UiState.Error]
      */
-    operator fun invoke() = flow {
+    operator fun invoke() = localDataSource.getAll().transform { result ->
         emit(UiState.Loading(emptyList()))
-        when (val result = localDataSource.getAll()) {
+        when (result) {
             is RepositoryResponse.Failure -> emit(UiState.Error(result.throwable))
             is RepositoryResponse.Success -> emit(UiState.Success(result.data))
         }
