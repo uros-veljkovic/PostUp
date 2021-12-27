@@ -6,6 +6,8 @@ import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostId
 import com.urkeev14.myapplication.utils.network.NetworkActionHandler
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.withContext
 
 class TypicodePostRemoteSourceImpl
 @Inject constructor(
@@ -14,11 +16,11 @@ class TypicodePostRemoteSourceImpl
 ) : RemoteDataSource<TypicodePostId, TypicodePostDto> {
 
     override suspend fun getAll(): RepositoryResponse<List<TypicodePostDto>> {
-        return networkActionHandler.execute { postApi.getPosts() }
+        return withContext(IO) { networkActionHandler.execute { postApi.getPosts() } }
     }
 
     override suspend fun getOne(id: TypicodePostId): RepositoryResponse<TypicodePostDto> {
-        return networkActionHandler.execute { postApi.getPost(id) }
+        return withContext(IO) { networkActionHandler.execute { postApi.getPost(id) } }
     }
 
 }
