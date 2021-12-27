@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 
 /**
- * Handles database method that return [Flow] of [Entity] and wraps [Entity] with [RepositoryResponse]
+ * Handles flowable database action
  *
  * @param Entity data loaded from database
  * @param load flowable database action being processed
@@ -19,6 +19,13 @@ fun <Entity> executeFlowableDatabaseAction(load: () -> Flow<Entity>): Flow<Repos
     }
 }
 
+/**
+ * Handles suspendable database action
+ *
+ * @param Entity data loaded from database
+ * @param load suspendable database action being processed
+ * @return [RepositoryResponse.Success] if database action is successful, otherwise [RepositoryResponse.Failure]
+ */
 suspend fun <Entity> executeDatabaseAction(load: suspend () -> Entity): RepositoryResponse<Entity> {
     return try {
         val result = load()
