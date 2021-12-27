@@ -10,7 +10,7 @@ import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserDto
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserId
 import com.urkeev14.myapplication.feature.post.FetchPostDetailsUseCase
 import com.urkeev14.myapplication.feature.post.TypicodeUserDataMapper
-import com.urkeev14.myapplication.feature.posts.FetchAndCachePostsUseCase
+import com.urkeev14.myapplication.usecase.FetchAndCacheUseCase
 import com.urkeev14.myapplication.feature.posts.TypicodePostDataMapper
 import com.urkeev14.myapplication.usecase.CacheAllUseCase
 import com.urkeev14.myapplication.usecase.FetchOneUseCase
@@ -62,7 +62,7 @@ class UseCaseModule {
         remoteDataSource: RemoteDataSource<TypicodePostId, TypicodePostDto>,
         localDataSource: LocalDataSource<TypicodePostEntity>,
         mapper: TypicodePostDataMapper,
-    ) = FetchAndCachePostsUseCase(remoteDataSource, localDataSource, mapper)
+    ) = FetchAndCacheUseCase(remoteDataSource, localDataSource, mapper)
 
     @Provides
     @Singleton
