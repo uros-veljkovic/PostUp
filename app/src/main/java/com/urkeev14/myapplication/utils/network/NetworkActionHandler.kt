@@ -19,7 +19,7 @@ class NetworkActionHandler @Inject constructor(private val context: Context) {
     suspend fun <DTO> execute(load: suspend () -> Response<DTO>): RepositoryResponse<DTO> {
         return try {
             // Note: For purpose of UX, delaying for 1 second
-            delay(SECOND)
+            delay(HALF_A_SECOND)
             load().let { response ->
                 if (response.isSuccessful) {
                     RepositoryResponse.Success(response.body()!!)
@@ -33,6 +33,6 @@ class NetworkActionHandler @Inject constructor(private val context: Context) {
     }
 
     companion object {
-        const val SECOND = 1000L
+        const val HALF_A_SECOND = 500L
     }
 }

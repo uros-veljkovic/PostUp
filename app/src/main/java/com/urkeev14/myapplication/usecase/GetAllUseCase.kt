@@ -16,7 +16,6 @@ class GetAllUseCase<Entity>
      * @return [UiState.Success] if data is successfully loaded from database, else [UiState.Error]
      */
     operator fun invoke() = localDataSource.getAll().transform { result ->
-        emit(UiState.Loading(emptyList()))
         when (result) {
             is RepositoryResponse.Failure -> emit(UiState.Error(result.throwable))
             is RepositoryResponse.Success -> emit(UiState.Success(result.data))
