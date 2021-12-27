@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.urkeev14.myapplication.R
 import com.urkeev14.myapplication.data.source.local.entity.TypicodePostEntity
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostId

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
 import com.urkeev14.myapplication.R
 import com.urkeev14.myapplication.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint

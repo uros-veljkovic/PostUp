@@ -10,9 +10,10 @@ import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserDto
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodeUserId
 import com.urkeev14.myapplication.feature.post.FetchPostDetailsUseCase
 import com.urkeev14.myapplication.feature.post.TypicodeUserDataMapper
+import com.urkeev14.myapplication.feature.posts.FetchAndCachePostsUseCase
 import com.urkeev14.myapplication.feature.posts.TypicodePostDataMapper
 import com.urkeev14.myapplication.usecase.CacheAllUseCase
-import com.urkeev14.myapplication.usecase.FetchUseCase
+import com.urkeev14.myapplication.usecase.FetchOneUseCase
 import com.urkeev14.myapplication.usecase.GetAllUseCase
 import dagger.Module
 import dagger.Provides
@@ -38,7 +39,7 @@ class UseCaseModule {
     fun provideFetchTypicodePostsUseCase(
         remoteDataSource: RemoteDataSource<TypicodePostId, TypicodePostDto>,
         mapper: TypicodePostDataMapper,
-    ): FetchUseCase<TypicodePostId, TypicodePostDto, TypicodePostEntity> = FetchUseCase(remoteDataSource, mapper)
+    ): FetchOneUseCase<TypicodePostId, TypicodePostDto, TypicodePostEntity> = FetchOneUseCase(remoteDataSource, mapper)
 
     // TODO: Migrate to interface injection
     @Provides
@@ -46,14 +47,22 @@ class UseCaseModule {
     fun provideFetchTypicodeUsersUseCase(
         remoteDataSource: RemoteDataSource<TypicodeUserId, TypicodeUserDto>,
         mapper: TypicodeUserDataMapper,
-    ): FetchUseCase<TypicodeUserId, TypicodeUserDto, TypicodeUserEntity> = FetchUseCase(remoteDataSource, mapper)
+    ): FetchOneUseCase<TypicodeUserId, TypicodeUserDto, TypicodeUserEntity> = FetchOneUseCase(remoteDataSource, mapper)
 
     @Provides
     @Singleton
     fun provideFetchPostDetailsUseCase(
-        fetchPostUseCase: FetchUseCase<TypicodePostId, TypicodePostDto, TypicodePostEntity>,
-        fetchUserUseCase: FetchUseCase<TypicodeUserId, TypicodeUserDto, TypicodeUserEntity>,
+        fetchPostUseCase: FetchOneUseCase<TypicodePostId, TypicodePostDto, TypicodePostEntity>,
+        fetchUserUseCase: FetchOneUseCase<TypicodeUserId, TypicodeUserDto, TypicodeUserEntity>,
     ) = FetchPostDetailsUseCase(fetchUserUseCase, fetchPostUseCase)
+
+    @Provides
+    @Singleton
+    fun provideFetchAndCachePostsUseCase(
+        remoteDataSource: RemoteDataSource<TypicodePostId, TypicodePostDto>,
+        localDataSource: LocalDataSource<TypicodePostEntity>,
+        mapper: TypicodePostDataMapper,
+    ) = FetchAndCachePostsUseCase(remoteDataSource, localDataSource, mapper)
 
     @Provides
     @Singleton
