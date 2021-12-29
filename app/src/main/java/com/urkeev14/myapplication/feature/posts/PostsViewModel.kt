@@ -64,12 +64,12 @@ class PostsViewModel
 
     private fun refreshPeriodically(): Job = viewModelScope.launch {
         while (isActive) {
-            delay(FIVE_MINUTES)
+            delay(POSTS_REFRESH_DELAY)
             fetchPosts()
         }
     }
 
     companion object {
-        const val FIVE_MINUTES = 1000L * 5
+        const val POSTS_REFRESH_DELAY = 1000L * 30
     }
 }
