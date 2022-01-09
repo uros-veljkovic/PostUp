@@ -16,10 +16,10 @@ data class TypicodePostDto(
     /**
      * Title of a post
      */
-    val title: String,
+    val title: String = "",
 
     /**
      * Content of a post
      */
-    val body: String,
+    val body: String = "",
 )

@@ -11,10 +11,10 @@ data class TypicodeUserDto(
     /**
      * User's full name
      */
-    val name: String,
+    val name: String = "",
 
     /**
      * User's email
      */
-    val email: String,
+    val email: String = "",
 )
