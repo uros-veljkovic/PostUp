@@ -1,16 +1,21 @@
 package com.urkeev14.myapplication.data.source.remote.api.posts.impl
 
-import com.urkeev14.myapplication.data.source.remote.api.posts.PostApi
+import com.urkeev14.myapplication.data.source.remote.api.Api
 import com.urkeev14.myapplication.data.source.remote.dto.TypicodePostDto
-import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import javax.inject.Inject
 
-interface TypicodePostApi : PostApi {
+class TypicodePostApi
+@Inject constructor(
+    private val client: HttpClient,
+) : Api<TypicodePostDto> {
 
-    @GET("/posts")
-    override suspend fun getPosts(): Response<List<TypicodePostDto>>
+    override suspend fun getAll(): List<TypicodePostDto> {
+        return client.get("/posts")
+    }
 
-    @GET("/posts/{id}")
-    override suspend fun getPost(@Path("id") id: Int): Response<TypicodePostDto>
+    override suspend fun getById(id: String): TypicodePostDto {
+        return client.get("/posts/$id")
+    }
 }

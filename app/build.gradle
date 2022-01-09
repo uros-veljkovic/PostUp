@@ -78,6 +78,13 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$version_retrofit"
 
+    // Ktor
+    implementation "io.ktor:ktor-client-core:$version_ktor"
+    implementation "io.ktor:ktor-client-cio:$version_ktor"
+    implementation "io.ktor:ktor-client-gson:$version_ktor"
+    implementation("io.ktor:ktor-client-logging:$version_ktor")
+
+
     // Gson
     implementation "com.google.code.gson:gson:$version_gson"
 
@@ -91,4 +98,8 @@ dependencies {
 
     // KtLint
     ktlint "com.pinterest:ktlint:$version_ktlint_pinterest"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$version_timber"
+
 }
