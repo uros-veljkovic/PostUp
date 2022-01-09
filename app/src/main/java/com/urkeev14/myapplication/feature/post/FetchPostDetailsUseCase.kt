@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 class FetchPostDetailsUseCase
 @Inject constructor(
-    private val fetchUserUseCase: FetchOneUseCase<TypicodeUserId, TypicodeUserDto, TypicodeUserEntity>,
-    private val fetchPostUseCase: FetchOneUseCase<TypicodePostId, TypicodePostDto, TypicodePostEntity>,
+    private val fetchUserUseCase: FetchOneUseCase<TypicodeUserDto, TypicodeUserEntity>,
+    private val fetchPostUseCase: FetchOneUseCase<TypicodePostDto, TypicodePostEntity>,
 ) {
     /**
      * Fetches a single [TypicodePostEntity] and a single [TypicodeUserEntity]
@@ -29,8 +29,8 @@ class FetchPostDetailsUseCase
      */
     operator fun invoke(postId: TypicodePostId, userId: TypicodeUserId) = flow {
         emit(UiState.Loading())
-        val userUiState = fetchUserUseCase.invoke(userId).last()
-        val postUiState = fetchPostUseCase.invoke(postId).last()
+        val userUiState = fetchUserUseCase.invoke(userId.toString()).last()
+        val postUiState = fetchPostUseCase.invoke(postId.toString()).last()
 
         if (
             userUiState is UiState.Error ||

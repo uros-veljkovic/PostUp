@@ -2,7 +2,7 @@ package com.urkeev14.myapplication.data.source.remote
 
 import com.urkeev14.myapplication.utils.network.RepositoryResponse
 
-interface RemoteDataSource<Id, Dto> {
+interface RemoteDataSource<Dto> {
     /**
      * Get list of [Dto] from remote data source
      *
@@ -16,5 +16,5 @@ interface RemoteDataSource<Id, Dto> {
      * @param id id of [Dto]
      * @return single [Dto]
      */
-    suspend fun getOne(id: Id): RepositoryResponse<Dto>
+    suspend fun getOne(id: String): RepositoryResponse<Dto>
 }

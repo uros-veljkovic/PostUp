@@ -7,9 +7,9 @@ import com.urkeev14.myapplication.utils.ui.UiState
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class FetchOneUseCase<DtoId, Dto, Entity>
+class FetchOneUseCase<Dto, Entity>
 @Inject constructor(
-    private val remoteDataSource: RemoteDataSource<DtoId, Dto>,
+    private val remoteDataSource: RemoteDataSource<Dto>,
     private val mapper: DataMapper<Dto, Entity>,
 ) {
 
@@ -19,7 +19,7 @@ class FetchOneUseCase<DtoId, Dto, Entity>
      * @param id id of [Dto]
      * @return [UiState.Success] if data is successfully fetched, else [UiState.Error]
      */
-    operator fun invoke(id: DtoId) = flow {
+    operator fun invoke(id: String) = flow {
         emit(UiState.Loading())
         when (val response = remoteDataSource.getOne(id)) {
             is RepositoryResponse.Failure -> emit(UiState.Error(response.throwable))

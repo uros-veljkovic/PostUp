@@ -9,9 +9,9 @@ import com.urkeev14.myapplication.utils.network.RepositoryResponse
 import com.urkeev14.myapplication.utils.ui.UiState
 import javax.inject.Inject
 
-class FetchAndCacheUseCase<DtoId, Dto, Entity>
+class FetchAndCacheUseCase<Dto, Entity>
 @Inject constructor(
-    private val remoteDataSource: RemoteDataSource<DtoId, Dto>,
+    private val remoteDataSource: RemoteDataSource<Dto>,
     private val localDataSource: LocalDataSource<Entity>,
     private val mapper: DataMapper<Dto, Entity>,
 ) {
@@ -23,9 +23,7 @@ class FetchAndCacheUseCase<DtoId, Dto, Entity>
     suspend operator fun invoke(): UiState<Boolean> {
         return when (val response = remoteDataSource.getAll()) {
             is RepositoryResponse.Failure -> UiState.Error(response.throwable)
-            is RepositoryResponse.Success -> {
-                handleSuccess(mapper.map(response.data))
-            }
+            is RepositoryResponse.Success -> handleSuccess(mapper.map(response.data))
         }
     }
 
