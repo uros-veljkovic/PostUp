@@ -11,14 +11,12 @@ class NetworkActionHandler @Inject constructor(private val context: Context) {
      * Executes network action and wraps it's result into [RepositoryResponse]
      *
      * @param DTO data received in response body
-     * @param load network action being processed
+     * @param loadData network action being processed
      * @return [RepositoryResponse.Success] if HTTP response is successful, otherwise [RepositoryResponse.Failure]
      */
-    suspend fun <DTO> execute(load: suspend () -> DTO): RepositoryResponse<DTO> {
+    suspend fun <DTO> execute(loadData: suspend () -> DTO): RepositoryResponse<DTO> {
         return try {
-            load().let { responseData ->
-                RepositoryResponse.Success(responseData)
-            }
+            RepositoryResponse.Success(loadData())
         } catch (e: IOException) {
             Timber.d(e)
             RepositoryResponse.Failure(Throwable(context.getString(R.string.error_network)))
